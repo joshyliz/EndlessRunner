@@ -5,11 +5,12 @@
 
 void SetLevel(Level *level)
 {
-    for (int i = 0; i < sizeof(level->ground) / sizeof(level->ground[0]); i++)
+    for (int i = 0; i < 3; i++)
     {
         level->ground[i].height = 200;
         level->ground[i].width = 650;
-        level->ground[i].y = GetScreenHeight() - 100;
+        level->ground[i].x = 0;
+        level->ground[i].y = GetScreenHeight() - level->ground[i].height;
     }
     
 }

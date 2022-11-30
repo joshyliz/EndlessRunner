@@ -1,28 +1,47 @@
 #include "raylib.h"
+#include "Global.h"
 #include "Player.h"
+#include "Level.h"
 #include <stdio.h>
+#include <stdbool.h>
 
-void PlayerUpdate(Player *player)
+void PlayerUpdate(Player *player, Level *level)
 {
     float delta = GetFrameTime();
 
-    if(IsKeyDown(KEY_A))
-        player->Velocity.x = -20;
-    else if(IsKeyDown(KEY_D))
-        player->Velocity.x = 20;   
-    else if(player->Velocity.x < 0)
-    {
-        player->Velocity.x += player->Friction * delta;
-    }
-    else if(player->Velocity.x > 0)
-    {
-        player->Velocity.x -= player->Friction * delta;
-    }
-
-
-    player->Position.x += player->Velocity.x * delta;
-    player->Position.y += player->Velocity.y * delta;
+    player->Position.x += player->Velocity.x;
+    player->Position.y += player->Velocity.y;
 
     player->Bounds.x = player->Position.x;
     player->Bounds.y = player->Position.y;
+
+    if(IsKeyDown(KEY_A))
+        player->Velocity.x += -2 * delta;
+    else if(IsKeyDown(KEY_D))
+        player->Velocity.x += 2 * delta;   
+    else if(player->Velocity.x != 0)
+        player->Velocity.x -= (player->Velocity.x -= player->Friction
+        * player->Velocity.x) * delta;
+
+    if(player->Velocity.x > (float)PLAYER_SPEED_CAP)
+        player->Velocity.x = (float)PLAYER_SPEED_CAP; 
+    else if(player->Velocity.x < -(float)PLAYER_SPEED_CAP)
+        player->Velocity.x = -(float)PLAYER_SPEED_CAP;
+
+    if(TopCollision(player->Bounds, player->Velocity, level->ground[0]))
+    {
+        player->isGrounded = true;
+        player->Velocity.y = 0;
+    }    
+
+    if(player->isGrounded == true && IsKeyDown(KEY_SPACE))
+    {
+        player->Velocity.y -= (float)(PLAYER_JUMP_HEIGHT) * delta;
+        player->isGrounded = false;
+    }    
+
+    if(player->isGrounded == false)
+        player->Velocity.y += (player->Gravity) * delta;
+    
+    player->isGrounded = false;
 }
