@@ -105,10 +105,26 @@ void RepeatGround(Rectangle currentGround, Rectangle *futureGround)
     srand(time(0));
 
     float defualtX = currentGround.x + currentGround.width + 50;
-    float defualtY = GetScreenHeight() - currentGround.height;
+    //float defualtY = GetScreenHeight() - currentGround.height;
+    float defualtY = GetScreenHeight() / 2;
 
-    int random = rand() % 6;
+    int random = (rand() % 100) + 1;
 
+    futureGround->x = defualtX + (float)random;
+
+    random = (rand() % 100) + 1;
+
+    if(rand() % 2 == 1)
+    {
+        futureGround->y = defualtY + random;
+    }
+    else
+    {
+        futureGround->y = defualtY - random;
+    }
+
+
+    /* Old Random Code
     switch (random)
     {
         case 0:
@@ -141,9 +157,9 @@ void RepeatGround(Rectangle currentGround, Rectangle *futureGround)
         futureGround->y = defualtY + 10; 
         break;
     }
-
-
+    */
 
 }
+
 
 

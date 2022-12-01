@@ -41,6 +41,15 @@ void PlayerUpdate(Player *player, Level *level)
             player->isGrounded = true;
             player->Velocity.y = 0;
         }    
+
+        if(LeftCollision(player->Bounds, player->Velocity, level->ground[i]))
+        {
+            player->Velocity.x = 0;
+        }
+
+        if(RightCollsion(player->Bounds, player->Velocity, level->ground[i]))
+        {
+        }
     }    
 
     if(player->isGrounded == true && IsKeyDown(KEY_SPACE))

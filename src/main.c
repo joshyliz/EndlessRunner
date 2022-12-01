@@ -33,7 +33,6 @@ int main(void)
     player.Gravity = 10.0f;
     player.isGrounded = false;
 
-
     
     Level level; 
     SetLevel(&level); 
