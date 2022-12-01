@@ -2,8 +2,9 @@
 #include "raylib.h"
 #include "Level.h"
 
-#define PLAYER_SPEED_CAP 100
-#define PLAYER_JUMP_HEIGHT 200
+#define PLAYER_SPEED_CAP 5
+#define PLAYER_MININUM_SPEED 2
+#define PLAYER_JUMP_HEIGHT 500
 
 typedef struct 
 {

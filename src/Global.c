@@ -1,6 +1,9 @@
 #include "raylib.h"
 #include "Global.h"
 #include "Player.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 Vector2 VectorZero()
 {
@@ -22,7 +25,6 @@ Vector2 VectorZero()
     float Right2 = rec2.x + rec2.width;
 
 */
-
 
 
 //Side Collsion Checks
@@ -96,4 +98,52 @@ bool RightCollsion(Rectangle rec1, Vector2 velocity1, Rectangle rec2)
         return true;
     else return false;
 }
+
+
+void RepeatGround(Rectangle currentGround, Rectangle *futureGround)
+{
+    srand(time(0));
+
+    float defualtX = currentGround.x + currentGround.width + 50;
+    float defualtY = GetScreenHeight() - currentGround.height;
+
+    int random = rand() % 6;
+
+    switch (random)
+    {
+        case 0:
+        futureGround->x = defualtX;
+        futureGround->y = defualtY - 50; 
+        break;
+
+        case 1:
+        futureGround->x = defualtX;
+        futureGround->y = defualtY + 50; 
+        break;
+
+        case 2:
+        futureGround->x = defualtX;
+        futureGround->y = defualtY - 20; 
+        break;
+
+        case 3:
+        futureGround->x = defualtX;
+        futureGround->y = defualtY + 20; 
+        break;
+
+        case 4:
+        futureGround->x = defualtX;
+        futureGround->y = defualtY + 10; 
+        break;
+
+        case 5:
+        futureGround->x = defualtX;
+        futureGround->y = defualtY + 10; 
+        break;
+    }
+
+
+
+}
+
 

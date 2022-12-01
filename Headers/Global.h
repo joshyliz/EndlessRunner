@@ -10,3 +10,6 @@ bool TopCollision(Rectangle rec1, Vector2 velocity1, Rectangle rec2);
 bool BottomCollision(Rectangle rec1, Vector2 velocity1, Rectangle rec2);
 bool LeftCollision(Rectangle rec1, Vector2 velocity1, Rectangle rec2);
 bool RightCollsion(Rectangle rec1, Vector2 velocity1, Rectangle rec2);
+
+
+void RepeatGround(Rectangle currentGround, Rectangle *futureGround);

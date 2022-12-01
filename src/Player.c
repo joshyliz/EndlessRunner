@@ -14,24 +14,33 @@ void PlayerUpdate(Player *player, Level *level)
 
     player->Bounds.x = player->Position.x;
     player->Bounds.y = player->Position.y;
+     
+    player->Velocity.x += 5 * delta;
 
     if(IsKeyDown(KEY_A))
-        player->Velocity.x += -2 * delta;
-    else if(IsKeyDown(KEY_D))
-        player->Velocity.x += 2 * delta;   
+        player->Velocity.x -= 7.5f * delta;
+
+    if(player->Velocity.x < (float)PLAYER_MININUM_SPEED)
+        player->Velocity.x = (float)PLAYER_MININUM_SPEED;
+
+    /* Not needed friction code 
     else if(player->Velocity.x != 0)
         player->Velocity.x -= (player->Velocity.x -= player->Friction
         * player->Velocity.x) * delta;
+    */
 
     if(player->Velocity.x > (float)PLAYER_SPEED_CAP)
         player->Velocity.x = (float)PLAYER_SPEED_CAP; 
     else if(player->Velocity.x < -(float)PLAYER_SPEED_CAP)
         player->Velocity.x = -(float)PLAYER_SPEED_CAP;
 
-    if(TopCollision(player->Bounds, player->Velocity, level->ground[0]))
-    {
-        player->isGrounded = true;
-        player->Velocity.y = 0;
+    for (size_t i = 0; i < SIZE_OF_GROUND; i++)
+    { 
+        if(TopCollision(player->Bounds, player->Velocity, level->ground[i]))
+        {
+            player->isGrounded = true;
+            player->Velocity.y = 0;
+        }    
     }    
 
     if(player->isGrounded == true && IsKeyDown(KEY_SPACE))
